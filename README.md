@@ -65,6 +65,19 @@ project/
                               the sentence sentiment classification task 
                               (problem 2 & problem 3)
 ```
+Before starting HW2, please make sure you have copied
+src/combine.cu from HW1 into the corresponding path in HW2.
+After that, run the following command to compile the CUDA kernel:
+```bash
+mkdir -p minitorch/cuda_kernels 
+nvcc -o minitorch/cuda_kernels/combine.so --shared src/combine.cu -Xcompiler -fPIC
+```
+
+Alternatively, you can complete this process automatically by running the provided script:
+```bash
+python migrate_kernel.py --hw1-dir <hw1 path> --hw2-dir <hw2 path>
+```
+
 
 ## Problem 1: Automatic Differentiation (40 points)
 
