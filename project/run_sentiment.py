@@ -137,7 +137,7 @@ class Network(minitorch.Module):
         # HINT: You can use minitorch.nn.dropout for dropout, and minitorch.tensor.relu for ReLU
 
         batch = embeddings.shape[0]
-        x = embeddings.mean(dim=1)
+        x = embeddings.mean(dim=1).view(batch, self.embedding_dim)
         x = self.linear1(x)
         x = x.relu()
         x = minitorch.nn.dropout(x, self.dropout_prob)
