@@ -38,8 +38,11 @@ def binary_cross_entropy_loss(out, y):
     # 2. Compute log softmax of out and (ones - out)
     # 3. Calculate binary cross entropy and take mean
     # HINT: Use minitorch.tensor_functions.ones
-    
-    raise NotImplementedError("cross_entropy_loss not implemented")
+
+    ones = minitorch.ones(y.shape, backend=BACKEND)
+    log_out = out.log()
+    log_one_minus_out = (ones - out).log()
+    return -((y * log_out) + (ones - y) * log_one_minus_out).mean()
     
     # END ASSIGN2_3
 
@@ -236,8 +239,15 @@ class SentenceSentimentTrain:
                 # 3. Calculate the loss using binary_cross_entropy_loss function
                 # 4. Call backward function of the loss
                 # 5. Use Optimizer to take a gradient step
-                
-                raise NotImplementedError("SentenceSentimentTrain train not implemented")
+                x = minitorch.tensor(X_train[example_num : example_num + batch_size], backend=BACKEND)
+                y = minitorch.tensor(y_train[example_num : example_num + batch_size], backend=BACKEND)
+                out = model(x)
+                loss = binary_cross_entropy_loss(out, y)
+                optim.zero_grad()
+                loss.backward()
+                optim.step()
+
+                # raise NotImplementedError("SentenceSentimentTrain train not implemented")
 
                 # END ASSIGN2_3
                 
@@ -259,8 +269,13 @@ class SentenceSentimentTrain:
                 # 2. Get the output of the model
                 # 3. Obtain validation predictions using the get_predictions_array function, and add to the validation_predictions list
                 # 4. Obtain the validation accuracy using the get_accuracy function, and add to the validation_accuracy list
-                
-                raise NotImplementedError("SentenceSentimentTrain train not implemented")
+                x = minitorch.tensor(X_val, backend=BACKEND)
+                y = minitorch.tensor(y_val, backend=BACKEND)
+                out = model(x)
+                validation_predictions += get_predictions_array(y, out)
+                validation_accuracy.append(get_accuracy(validation_predictions))
+
+                # raise NotImplementedError("SentenceSentimentTrain train not implemented")
                 
                 # END ASSIGN2_3
                 
